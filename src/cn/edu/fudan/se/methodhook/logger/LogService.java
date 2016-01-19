@@ -28,8 +28,9 @@ public class LogService extends IntentService {
         super.onCreate();
         try {
             server = new ServerSocket(PORT);
+            Log.e("LogService", "server started");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("LogService", "exception occurs during server starting:" + e.getClass().getName() + ":" + e.getMessage());
         }
         started = true;
     }
