@@ -103,7 +103,7 @@ public class LogService extends IntentService {
 
         private void storeEntry(MethodLogEntry entry) {
             //TODO store into SQLite
-            Log.e("Method Hook", entry.toString());
+            Log.e("Method Hook", "store log entry:" + entry.toString());
         }
     }
 }

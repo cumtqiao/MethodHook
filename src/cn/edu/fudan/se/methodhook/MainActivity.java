@@ -1,10 +1,12 @@
 package cn.edu.fudan.se.methodhook;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
+import cn.edu.fudan.se.methodhook.logger.LogService;
 
 import java.io.*;
 
@@ -29,6 +31,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         this.filePath = Environment.getExternalStorageDirectory().getAbsolutePath()
                 + File.separator + "Hook" + File.separator + "FileIOHook";
+        startService(new Intent(this, LogService.class));
     }
 
     public void readFile(View v) {

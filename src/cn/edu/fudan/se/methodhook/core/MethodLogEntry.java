@@ -8,17 +8,17 @@ import java.lang.reflect.Method;
 /**
  * Created by Dawnwords on 2016/1/17.
  */
-public class MethodLogEntry implements Serializable{
+public class MethodLogEntry implements Serializable {
     private int pid;
     private String threadName;
-    private Method method;
+    private String method;
     private long time;
     private String processName;
 
     private MethodLogEntry(int pid, String threadName, Method method) {
         this.pid = pid;
         this.threadName = threadName;
-        this.method = method;
+        this.method = method.toString();
         this.time = System.currentTimeMillis();
     }
 
@@ -46,7 +46,7 @@ public class MethodLogEntry implements Serializable{
         return processName;
     }
 
-    public Method method() {
+    public String method() {
         return method;
     }
 

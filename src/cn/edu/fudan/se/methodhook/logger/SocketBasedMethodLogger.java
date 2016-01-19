@@ -43,7 +43,7 @@ public class SocketBasedMethodLogger implements MethodLogger {
         private Socket client;
 
         public LoggerDaemon() {
-            reconnect();
+            connect();
         }
 
         @Override
@@ -57,17 +57,19 @@ public class SocketBasedMethodLogger implements MethodLogger {
                 }
                 if (logEntry == null) continue;
                 try {
+                    if (client == null) {
+                        reconnect();
+                    }
                     ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
                     out.writeObject(logEntry);
                     out.flush();
                 } catch (Exception e) {
                     Log.e("Method Hook", "socket error:" + e.getClass().getSimpleName() + ":" + e.getMessage());
-                    retry(logEntry);
                 }
             }
         }
 
-        private void reconnect() {
+        private void connect() {
             try {
                 this.client = new Socket("127.0.0.1", LogService.PORT);
             } catch (IOException e) {
@@ -75,14 +77,14 @@ public class SocketBasedMethodLogger implements MethodLogger {
             }
         }
 
-        private void retry(MethodLogEntry logEntry) {
+        private void reconnect() {
             try {
                 sleep(5 * 1000);
-                reconnect();
+                logEntryQueue.clear();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            logMethod(logEntry);
+            connect();
         }
     }
 }
