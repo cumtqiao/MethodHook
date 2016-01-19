@@ -1,5 +1,6 @@
 package cn.edu.fudan.se.methodhook.logger;
 
+import android.util.Log;
 import cn.edu.fudan.se.methodhook.core.MethodLogEntry;
 import cn.edu.fudan.se.methodhook.core.MethodLogger;
 
@@ -42,6 +43,31 @@ public class SocketBasedMethodLogger implements MethodLogger {
         private Socket client;
 
         public LoggerDaemon() {
+            reconnect();
+        }
+
+        @Override
+        public void run() {
+            while (!isInterrupted()) {
+                MethodLogEntry logEntry = null;
+                try {
+                    logEntry = logEntryQueue.take();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (logEntry == null) continue;
+                try {
+                    ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
+                    out.writeObject(logEntry);
+                    out.flush();
+                } catch (Exception e) {
+                    Log.e("Method Hook", "socket error:" + e.getClass().getSimpleName() + ":" + e.getMessage());
+                    retry(logEntry);
+                }
+            }
+        }
+
+        private void reconnect() {
             try {
                 this.client = new Socket("127.0.0.1", LogService.PORT);
             } catch (IOException e) {
@@ -49,23 +75,10 @@ public class SocketBasedMethodLogger implements MethodLogger {
             }
         }
 
-        @Override
-        public void run() {
-            while (!isInterrupted()) {
-                MethodLogEntry logEntry = logEntryQueue.poll();
-                try {
-                    ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-                    out.writeObject(logEntry);
-                    out.flush();
-                } catch (Exception e) {
-                    retry(logEntry);
-                }
-            }
-        }
-
         private void retry(MethodLogEntry logEntry) {
             try {
                 sleep(5 * 1000);
+                reconnect();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
