@@ -10,11 +10,25 @@
         android:targetSdkVersion="23"/>
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="cydia.permission.SUBSTRATE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
+
+        <meta-data
+            android:name="com.saurik.substrate.main"
+            android:value=".core.Main"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".logger.OnBootBroadcastReceiver">
             <intent-filter>

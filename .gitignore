@@ -1,5 +1,6 @@
 /gen
 /bin
+/out
 /.idea
 *.iml
 local.properties

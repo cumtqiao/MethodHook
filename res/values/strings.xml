@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">methodhook</string>
+    <string name="app_name">MethodHook</string>
+    <string name="write_file_buffered">Write File Buffered</string>
+    <string name="write_file_int">Write File Int</string>
+    <string name="read_file">Read File</string>
 </resources>

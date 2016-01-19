@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/write_file_buffered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="writeFileBuffer"
+        android:text="@string/write_file_buffered" />
+
+    <Button
+        android:id="@+id/write_file_int"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="writeFileInt"
+        android:text="@string/write_file_int" />
+
+    <Button
+        android:id="@+id/read_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="readFile"
+        android:text="@string/read_file" />
+
+
+</LinearLayout>
