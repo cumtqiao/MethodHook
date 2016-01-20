@@ -4,6 +4,7 @@ import android.os.Process;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * Created by Dawnwords on 2016/1/17.
@@ -58,8 +59,9 @@ public class MethodLogEntry implements Serializable {
     public String toString() {
         return "{" +
                 "pid:" + pid +
-                ", thread:'" + threadName + '\'' +
-                ", method:" + method +
+                ", threadName:'" + threadName + '\'' +
+                ", method:'" + method + '\'' +
+                ", time:" + new Date(time).toString() +
                 ", processName:'" + processName + '\'' +
                 '}';
     }

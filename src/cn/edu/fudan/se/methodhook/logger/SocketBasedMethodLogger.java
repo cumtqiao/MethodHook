@@ -72,6 +72,7 @@ public class SocketBasedMethodLogger implements MethodLogger {
         private void connect() {
             try {
                 this.client = new Socket("127.0.0.1", LogService.PORT);
+                Log.e("Method Hook", "reconnect completed");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -79,6 +80,7 @@ public class SocketBasedMethodLogger implements MethodLogger {
 
         private void reconnect() {
             try {
+                Log.e("Method Hook", "reconnect after 5s");
                 sleep(5 * 1000);
                 logEntryQueue.clear();
             } catch (InterruptedException e) {
