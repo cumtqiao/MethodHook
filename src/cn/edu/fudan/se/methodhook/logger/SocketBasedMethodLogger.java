@@ -3,6 +3,7 @@ package cn.edu.fudan.se.methodhook.logger;
 import android.util.Log;
 import cn.edu.fudan.se.methodhook.core.MethodLogEntry;
 import cn.edu.fudan.se.methodhook.core.MethodLogger;
+import cn.edu.fudan.se.methodhook.intenthandler.SocketBasedIntentHandler;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -14,20 +15,13 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Dawnwords on 2016/1/18.
  */
 public class SocketBasedMethodLogger implements MethodLogger {
-    private static SocketBasedMethodLogger instance;
+
     private BlockingQueue<MethodLogEntry> logEntryQueue;
 
-    private SocketBasedMethodLogger() {
+    public SocketBasedMethodLogger() {
         this.logEntryQueue = new LinkedBlockingQueue<>();
 
         new LoggerDaemon().start();
-    }
-
-    public static SocketBasedMethodLogger newInstance() {
-        if (instance == null) {
-            instance = new SocketBasedMethodLogger();
-        }
-        return instance;
     }
 
     @Override
@@ -71,10 +65,14 @@ public class SocketBasedMethodLogger implements MethodLogger {
 
         private void connect() {
             try {
-                this.client = new Socket("127.0.0.1", LogService.PORT);
+                this.client = new Socket("127.0.0.1", SocketBasedIntentHandler.PORT);
                 Log.e("Method Hook", "reconnect completed");
             } catch (IOException e) {
-                e.printStackTrace();
+                if (e.getMessage().contains("EACCES")) {
+                    Log.e("Method Hook", "No Internet Permission");
+                } else {
+                    e.printStackTrace();
+                }
             }
         }
 

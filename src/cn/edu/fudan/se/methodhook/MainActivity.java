@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
-import cn.edu.fudan.se.methodhook.logger.LogService;
+import cn.edu.fudan.se.methodhook.core.LogService;
 
 import java.io.*;
 

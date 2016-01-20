@@ -1,7 +1,6 @@
 package cn.edu.fudan.se.methodhook.core;
 
 import android.util.Log;
-import cn.edu.fudan.se.methodhook.logger.SocketBasedMethodLogger;
 import com.saurik.substrate.MS;
 
 import java.lang.reflect.Method;
@@ -40,11 +39,9 @@ public final class MethodHook<CLASS> {
                     MS.hookMethod(aClass, method, new MS.MethodAlteration<CLASS, Object>() {
                         @Override
                         public Object invoked(CLASS t, Object... args) throws Throwable {
-                            //TODO set processName in a ContextWrapper
                             MethodLogEntry logEntry = MethodLogEntry.create(method);
                             Log.i("Method Hook", "send log entry:" + logEntry);
-                            //TODO need to log arguments?
-                            SocketBasedMethodLogger.newInstance().logMethod(logEntry);
+                            ComponentFactory.getInstance().createMethodLogger().logMethod(logEntry);
                             return invoke(t, args);
                         }
                     });
