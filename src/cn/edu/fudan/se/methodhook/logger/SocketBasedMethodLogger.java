@@ -36,12 +36,9 @@ public class SocketBasedMethodLogger implements MethodLogger {
     private class LoggerDaemon extends Thread {
         private Socket client;
 
-        public LoggerDaemon() {
-            connect();
-        }
-
         @Override
         public void run() {
+            connect();
             while (!isInterrupted()) {
                 MethodLogEntry logEntry = null;
                 try {

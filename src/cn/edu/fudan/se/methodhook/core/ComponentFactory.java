@@ -2,7 +2,7 @@ package cn.edu.fudan.se.methodhook.core;
 
 import android.app.Application;
 import android.content.Context;
-import cn.edu.fudan.se.methodhook.factory.SocketBasedPrintFactory;
+import cn.edu.fudan.se.methodhook.factory.IPCBasedPrintFactory;
 
 import java.lang.reflect.Method;
 
@@ -27,7 +27,7 @@ public abstract class ComponentFactory {
 
     public static ComponentFactory getInstance() {
         if (instance == null) {
-            instance = new SocketBasedPrintFactory();
+            instance = new IPCBasedPrintFactory();
         }
         return instance;
     }

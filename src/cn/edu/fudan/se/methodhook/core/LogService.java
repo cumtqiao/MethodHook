@@ -2,8 +2,6 @@ package cn.edu.fudan.se.methodhook.core;
 
 import android.app.IntentService;
 import android.content.Intent;
-import cn.edu.fudan.se.methodhook.entryprocessor.PrintEntryProcessor;
-import cn.edu.fudan.se.methodhook.intenthandler.SocketBasedIntentHandler;
 
 /**
  * Created by Dawnwords on 2016/1/18.
@@ -19,7 +17,7 @@ public class LogService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        handler = new SocketBasedIntentHandler(new PrintEntryProcessor(this));
+        handler = ComponentFactory.getInstance().createIntentHandler();
         handler.start();
     }
 
