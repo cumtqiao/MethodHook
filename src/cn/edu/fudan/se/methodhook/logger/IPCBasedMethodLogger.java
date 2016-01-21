@@ -2,7 +2,6 @@ package cn.edu.fudan.se.methodhook.logger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import cn.edu.fudan.se.methodhook.core.LogService;
 import cn.edu.fudan.se.methodhook.core.MethodLogEntry;
 import cn.edu.fudan.se.methodhook.core.MethodLogger;
@@ -20,7 +19,6 @@ public class IPCBasedMethodLogger implements MethodLogger {
     @Override
     public void logMethod(MethodLogEntry methodLogEntry) {
         if (context == null) {
-            Log.e("Method Hook", "No Context Found");
             return;
         }
 
